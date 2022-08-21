@@ -35,7 +35,7 @@ school_city = os.environ['SCHOOL_CITY']
 home_wearing_tips = ""
 school_wearing_tips = ""
 
-birthday = os.environ['BIRTHDAY']
+#birthday = os.environ['BIRTHDAY']
 
 app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
@@ -53,11 +53,11 @@ def get_count(date_str):
   delta = today - datetime.strptime(date_str, "%Y-%m-%d")
   return delta.days
 
-def get_birthday():
-  next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
-  if next < datetime.now():
-    next = next.replace(year=next.year + 1)
-  return (next - today).days
+#def get_birthday():
+  #next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
+  #if next < datetime.now():
+    #next = next.replace(year=next.year + 1)
+  #return (next - today).days
 
 def get_words():
   words = requests.get("https://api.shadiao.pro/chp")
