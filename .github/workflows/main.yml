@@ -27,6 +27,10 @@ jobs:
       APP_SECRET: ${{ secrets.APP_SECRET }}
       TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
       USER_ID: ${{ secrets.USER_ID }}
-      START_DATE: ${{ secrets.START_DATE }}
-      BIRTHDAY: ${{ secrets.BIRTHDAY }}
-      CITY: ${{ secrets.CITY }}
+      DATE_FROM: ${{ secrets.DATE_FROM }}
+      DATE_TO: ${{ secrets.DATE_TO }}
+      FRI_SP: ${{ secrets.FRI_SP }}
+      HOME_CITY: ${{ secrets.HOME_CITY }}
+      IS_SCHOOL: ${{ secrets.IS_SCHOOL }}
+      SCHOOL_CITY: ${{ secrets.SCHOOL_CITY }}
+      WEEKEND_SP: ${{ secrets.WEEKEND_SP }}
