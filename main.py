@@ -1,14 +1,40 @@
+#encoding:utf-8
 from datetime import date, datetime
 import math
+from pickle import FALSE, TRUE
 from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
 import os
 import random
 
+weekday_dict = {0:"周一",1:"周二",2:"周三",3:"周四",4:"周五",5:"周六",6:"周日"}
+
 today = datetime.now()
-start_date = os.environ['START_DATE']
-city = os.environ['CITY']
+week_num = today.weekday()
+week = weekday_dict[week_num]
+special = ""
+
+if week_num == 4:
+    special = os.environ['FRI_SP']
+elif week_num == 5 or week_num == 6:
+    special = os.environ['WEEKEND_SP']
+
+is_school = os.environ['IS_SCHOOL']
+is_school_started = ""
+if is_school == 'False':
+    is_school_started = "目前看来还没有开学呢"
+else:
+    is_school_started = "开始上学啦！努力做实验哦！加油！"
+
+date_from = os.environ['DATE_FROM']
+date_to = os.environ['DATE_TO']
+
+home_city = os.environ['HOME_CITY']
+school_city = os.environ['SCHOOL_CITY']
+home_wearing_tips = ""
+school_wearing_tips = ""
+
 birthday = os.environ['BIRTHDAY']
 
 app_id = os.environ["APP_ID"]
@@ -17,15 +43,14 @@ app_secret = os.environ["APP_SECRET"]
 user_id = os.environ["USER_ID"]
 template_id = os.environ["TEMPLATE_ID"]
 
-
-def get_weather():
+def get_weather(city):
   url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
   res = requests.get(url).json()
   weather = res['data']['list'][0]
   return weather['weather'], math.floor(weather['temp'])
 
-def get_count():
-  delta = today - datetime.strptime(start_date, "%Y-%m-%d")
+def get_count(date_str):
+  delta = today - datetime.strptime(date_str, "%Y-%m-%d")
   return delta.days
 
 def get_birthday():
@@ -47,7 +72,14 @@ def get_random_color():
 client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
-wea, temperature = get_weather()
-data = {"weather":{"value":wea},"temperature":{"value":temperature},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
+
+home_weather, home_temperature = get_weather(home_city)
+school_weather, school_temperature = get_weather(school_city)
+
+data = {"week":{"value":week},"spectial":{"value":special},"home":{"value":home_city},"home_weather":{"value":home_weather}, \
+"home_temp":{"value":home_temperature},"home_wearing_tips":{"value":home_wearing_tips},"school_wearing_tips":{"value":school_wearing_tips}, \
+"school":{"value":school_city},"school_weather":{"value":school_weather},"school_temp":{"value":school_temperature},"date_from":{"value":get_count(date_from)}, \
+"date_to":{"value":get_count(date_to)}}
+print(data)
 res = wm.send_template(user_id, template_id, data)
 print(res)
