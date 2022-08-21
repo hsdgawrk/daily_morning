@@ -32,6 +32,7 @@ date_to = os.environ['DATE_TO']
 
 home_city = os.environ['HOME_CITY']
 school_city = os.environ['SCHOOL_CITY']
+#need add comma before wearing tips
 home_wearing_tips = ""
 school_wearing_tips = ""
 
