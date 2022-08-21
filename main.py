@@ -42,6 +42,7 @@ app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
 
 user_id = os.environ["USER_ID"]
+user_id_2 = os.environ["USER_ID_2"]
 template_id = os.environ["TEMPLATE_ID"]
 
 def get_weather(city):
@@ -77,10 +78,11 @@ wm = WeChatMessage(client)
 home_weather, home_temperature = get_weather(home_city)
 school_weather, school_temperature = get_weather(school_city)
 
-data = {"week":{"value":week},"spectial":{"value":special},"home":{"value":home_city},"home_weather":{"value":home_weather}, \
+data = {"week":{"value":week},"special":{"value":special},"is_school_started":{"value":is_school_started},"home":{"value":home_city},"home_weather":{"value":home_weather}, \
 "home_temp":{"value":home_temperature},"home_wearing_tips":{"value":home_wearing_tips},"school_wearing_tips":{"value":school_wearing_tips}, \
 "school":{"value":school_city},"school_weather":{"value":school_weather},"school_temp":{"value":school_temperature},"date_from":{"value":get_count(date_from)}, \
 "date_to":{"value":get_count(date_to)}}
-print(data)
+
 res = wm.send_template(user_id, template_id, data)
+res = wm.send_template(user_id_2, template_id, data)
 print(res)
