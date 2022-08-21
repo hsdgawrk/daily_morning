@@ -23,7 +23,7 @@ elif week_num == 5 or week_num == 6:
 is_school = os.environ['IS_SCHOOL']
 is_school_started = ""
 if is_school == 'False':
-    is_school_started = "目前看来还没有开学呢"
+    is_school_started = "目前看来还没有开学呢。"
 else:
     is_school_started = "开始上学啦！努力做实验哦！加油！"
 
@@ -52,7 +52,7 @@ def get_weather(city):
 
 def get_count(date_str):
   delta = today - datetime.strptime(date_str, "%Y-%m-%d")
-  return delta.days
+  return abs(delta.days)
 
 #def get_birthday():
   #next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
