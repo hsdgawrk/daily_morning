@@ -58,7 +58,7 @@ def get_count(date_str):
     #next = next.replace(year=next.year + 1)
   #return (next - today).days
 
-def get_wearing_tips(city, tip):
+def get_wearing_tips(city):
   city_code = city_dict[city]
   url = "https://m.weather.com.cn/mcy/" + str(city_code) + '.shtml'
   res = requests.get(url).content.decode('utf-8')
