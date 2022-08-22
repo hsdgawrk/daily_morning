@@ -97,5 +97,5 @@ data = {"week":{"value":week},"special":{"value":special},"is_school_started":{"
 "date_to":{"value":get_count(date_to)}}
 
 res = wm.send_template(user_id, template_id, data)
-#res = wm.send_template(user_id_2, template_id, data)
+res = wm.send_template(user_id_2, template_id, data)
 print(res)
