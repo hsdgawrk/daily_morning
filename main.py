@@ -65,7 +65,8 @@ def get_wearing_tips(city, tip):
   soup = BeautifulSoup(res, "html.parser")
   div_child = soup.find('div', { 'id' : 'datebox' }).findChild("div")
   for div in div_child:
-      print(div)
+      tip ="，" + str(div)
+  return tip
 
 def get_words():
   words = requests.get("https://api.shadiao.pro/chp")
@@ -86,10 +87,10 @@ school_weather, school_temperature = get_weather(school_city)
 is_school_started = ""
 if is_school == 'False':
     is_school_started = "目前看来还没有开学呢。"
-    get_wearing_tips(home_city, home_wearing_tips)
+    home_wearing_tips = get_wearing_tips(home_city)
 else:
     is_school_started = "开始上学啦！努力做实验哦！加油！"
-    get_wearing_tips(school_city, school_wearing_tips)
+    school_wearing_tips = get_wearing_tips(school_city)
 
 data = {"week":{"value":week},"special":{"value":special},"is_school_started":{"value":is_school_started},"home":{"value":home_city},"home_weather":{"value":home_weather}, \
 "home_temp":{"value":home_temperature},"home_wearing_tips":{"value":home_wearing_tips},"school_wearing_tips":{"value":school_wearing_tips}, \
