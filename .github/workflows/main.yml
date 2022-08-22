@@ -35,3 +35,4 @@ jobs:
       IS_SCHOOL: ${{ secrets.IS_SCHOOL }}
       SCHOOL_CITY: ${{ secrets.SCHOOL_CITY }}
       WEEKEND_SP: ${{ secrets.WEEKEND_SP }}
+      WEATHER_ID: ${{ secrets.WEATHER_ID }}
