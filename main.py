@@ -65,7 +65,7 @@ def get_wearing_tips(city, tip):
   soup = BeautifulSoup(res, "html.parser")
   div_child = soup.find('div', { 'id' : 'datebox' }).findChild("div")
   for div in div_child:
-      tip = "，" + str(div)
+      print(div)
 
 def get_words():
   words = requests.get("https://api.shadiao.pro/chp")
@@ -75,7 +75,6 @@ def get_words():
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
-
 
 client = WeChatClient(app_id, app_secret)
 
@@ -96,7 +95,7 @@ data = {"week":{"value":week},"special":{"value":special},"is_school_started":{"
 "home_temp":{"value":home_temperature},"home_wearing_tips":{"value":home_wearing_tips},"school_wearing_tips":{"value":school_wearing_tips}, \
 "school":{"value":school_city},"school_weather":{"value":school_weather},"school_temp":{"value":school_temperature},"date_from":{"value":get_count(date_from)}, \
 "date_to":{"value":get_count(date_to)}}
-print(data)
+
 res = wm.send_template(user_id, template_id, data)
 #res = wm.send_template(user_id_2, template_id, data)
 print(res)
