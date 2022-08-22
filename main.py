@@ -7,7 +7,6 @@ from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
 import os
 import random
-from bs4 import BeautifulSoup
 
 weekday_dict = {0:"周一",1:"周二",2:"周三",3:"周四",4:"周五",5:"周六",6:"周日"}
 city_dict = {'济南':101120101,'大连':101070201}
@@ -42,6 +41,8 @@ user_id = os.environ["USER_ID"]
 user_id_2 = os.environ["USER_ID_2"]
 template_id = os.environ["TEMPLATE_ID"]
 
+weather_id = os.environ["WEATHER_ID"]
+
 def get_weather(city):
   url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
   res = requests.get(url).json()
@@ -59,14 +60,11 @@ def get_count(date_str):
   #return (next - today).days
 
 def get_wearing_tips(city):
-  city_code = city_dict[city]
-  url = "https://m.weather.com.cn/mcy/" + str(city_code) + '.shtml'
-  res = requests.get(url).content.decode('utf-8')
-  soup = BeautifulSoup(res, "html.parser")
-  div_child = soup.find('div', { 'id' : 'datebox' }).findChild("div")
-  for div in div_child:
-      tip ="，" + str(div)
-  return tip
+    city_code = city_dict[city]
+    url = "https://devapi.qweather.com/v7/indices/1d?key=" + weather_id +"&location=" + str(city_code) + "&type=3,5"
+    res = requests.get(url).json()
+    tip = res['daily'][0]['text'] + res['daily'][1]['text'].strip('。')
+    return tip
 
 def get_words():
   words = requests.get("https://api.shadiao.pro/chp")
@@ -76,6 +74,7 @@ def get_words():
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
+
 
 client = WeChatClient(app_id, app_secret)
 
@@ -87,10 +86,10 @@ school_weather, school_temperature = get_weather(school_city)
 is_school_started = ""
 if is_school == 'False':
     is_school_started = "目前看来还没有开学呢。"
-    home_wearing_tips = get_wearing_tips(home_city)
+    get_wearing_tips(home_city, home_wearing_tips)
 else:
     is_school_started = "开始上学啦！努力做实验哦！加油！"
-    school_wearing_tips = get_wearing_tips(school_city)
+    get_wearing_tips(school_city, school_wearing_tips)
 
 data = {"week":{"value":week},"special":{"value":special},"is_school_started":{"value":is_school_started},"home":{"value":home_city},"home_weather":{"value":home_weather}, \
 "home_temp":{"value":home_temperature},"home_wearing_tips":{"value":home_wearing_tips},"school_wearing_tips":{"value":school_wearing_tips}, \
