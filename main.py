@@ -7,7 +7,7 @@ from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
 import os
 import random
-import bs4
+from bs4 import BeautifulSoup
 
 weekday_dict = {0:"周一",1:"周二",2:"周三",3:"周四",4:"周五",5:"周六",6:"周日"}
 city_dict = {'济南':101120101,'大连':101070201}
