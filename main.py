@@ -6,7 +6,6 @@ from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
 import os
-import random
 
 weekday_dict = {0:"周一",1:"周二",2:"周三",3:"周四",4:"周五",5:"周六",6:"周日"}
 city_dict = {'济南':101120101,'大连':101070201}
@@ -66,16 +65,6 @@ def get_wearing_tips(city):
     tip = "，" + res['daily'][0]['text'] + res['daily'][1]['text'].strip('。')
     return tip
 
-def get_words():
-  words = requests.get("https://api.shadiao.pro/chp")
-  if words.status_code != 200:
-    return get_words()
-  return words.json()['data']['text']
-
-def get_random_color():
-  return "#%06x" % random.randint(0, 0xFFFFFF)
-
-
 client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
@@ -93,8 +82,7 @@ else:
 
 data = {"week":{"value":week},"special":{"value":special},"is_school_started":{"value":is_school_started},"home":{"value":home_city},"home_weather":{"value":home_weather}, \
 "home_temp":{"value":home_temperature},"home_wearing_tips":{"value":home_wearing_tips},"school_wearing_tips":{"value":school_wearing_tips}, \
-"school":{"value":school_city},"school_weather":{"value":school_weather},"school_temp":{"value":school_temperature},"date_from":{"value":get_count(date_from)}, \
-"date_to":{"value":get_count(date_to)}}
+"school":{"value":school_city},"school_weather":{"value":school_weather},"school_temp":{"value":school_temperature},"date_from":{"value":get_count(date_from)}}
 
 res = wm.send_template(user_id, template_id, data)
 res = wm.send_template(user_id_2, template_id, data)
