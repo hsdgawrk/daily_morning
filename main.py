@@ -47,7 +47,7 @@ def get_weather(city):
   url = "https://devapi.qweather.com/v7/weather/now?key=" + weather_id +"&location=" + str(city_code)
   res = requests.get(url).json()
   weather = res['now']
-  return weather['text'], math.floor(weather['feelsLike'])
+  return weather['text'], weather['feelsLike']
 
 def get_count(date_str):
   delta = today - datetime.strptime(date_str, "%Y-%m-%d")
