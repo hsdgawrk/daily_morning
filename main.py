@@ -63,7 +63,7 @@ def get_wearing_tips(city):
     city_code = city_dict[city]
     url = "https://devapi.qweather.com/v7/indices/1d?key=" + weather_id +"&location=" + str(city_code) + "&type=3,5"
     res = requests.get(url).json()
-    tip = "，" + res['daily'][0]['text'] + "紫外线指数为：" + res['daily'][1]['level'] + + res['daily'][1]['text'].strip('。')
+    tip = "，" + res['daily'][0]['text'] + "紫外线指数为：" + res['daily'][1]['level'] + res['daily'][1]['text'].strip('。')
     return tip
 
 client = WeChatClient(app_id, app_secret)
