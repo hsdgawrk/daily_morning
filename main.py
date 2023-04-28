@@ -54,11 +54,11 @@ def get_count(date_str):
   delta = today - datetime.strptime(date_str, "%Y-%m-%d")
   return abs(delta.days)
 
-#def get_birthday():
-  #next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
-  #if next < datetime.now():
-    #next = next.replace(year=next.year + 1)
-  #return (next - today).days
+def get_birthday():
+  next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
+  if next < datetime.now():
+    next = next.replace(year=next.year + 1)
+  return (next - today).days
 
 def get_wearing_tips(city):
     city_code = city_dict[city]
@@ -86,6 +86,11 @@ data = {"week":{"value":week},"special":{"value":special},"is_school_started":{"
 "home_temp":{"value":home_temperature},"home_wearing_tips":{"value":home_wearing_tips},"school_wearing_tips":{"value":school_wearing_tips}, \
 "school":{"value":school_city},"school_weather":{"value":school_weather},"school_temp":{"value":school_temperature},"date_from":{"value":get_count(date_from)}}
 
-res = wm.send_template(user_id, template_id2, data)
+if get_birthday() == 0:
+    template = template_id2
+else:
+    template = template_id
+
+#res = wm.send_template(user_id, template_id2, data)
 res = wm.send_template(user_id_2, template_id2, data)
 print(res)
