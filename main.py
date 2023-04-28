@@ -39,6 +39,7 @@ app_secret = os.environ["APP_SECRET"]
 user_id = os.environ["USER_ID"]
 user_id_2 = os.environ["USER_ID_2"]
 template_id = os.environ["TEMPLATE_ID"]
+template_id2 = os.environ["TEMPLATE_ID2"]
 
 weather_id = os.environ["WEATHER_ID"]
 
@@ -85,6 +86,6 @@ data = {"week":{"value":week},"special":{"value":special},"is_school_started":{"
 "home_temp":{"value":home_temperature},"home_wearing_tips":{"value":home_wearing_tips},"school_wearing_tips":{"value":school_wearing_tips}, \
 "school":{"value":school_city},"school_weather":{"value":school_weather},"school_temp":{"value":school_temperature},"date_from":{"value":get_count(date_from)}}
 
-res = wm.send_template(user_id, template_id, data)
-res = wm.send_template(user_id_2, template_id, data)
+res = wm.send_template(user_id, template_id2, data)
+res = wm.send_template(user_id_2, template_id2, data)
 print(res)
