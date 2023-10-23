@@ -26,6 +26,7 @@ jobs:
       TEMPLATE_ID: ${{ secrets.TEMPLATE_ID }}
       USER_ID: ${{ secrets.USER_ID }}
       USER_ID_2: ${{ secrets.USER_ID_2 }}
+      USER_ID_3: ${{ secrets.USER_ID_3 }}
       DATE_FROM: ${{ secrets.DATE_FROM }}
       DATE_TO: ${{ secrets.DATE_TO }}
       FRI_SP: ${{ secrets.FRI_SP }}
